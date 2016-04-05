@@ -6,10 +6,13 @@
 //  Copyright © 2016 Sergey Mikhalchenko. All rights reserved.
 //
 
+import Foundation
 import UIKit
 
 class WeatherTableViewController: UITableViewController {
 
+    var locationWeatherListing: Results<LocationWeatherRealm>
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
