@@ -20,11 +20,11 @@ class WeatherTableViewController: UITableViewController {
 //                print("failure = \(error)")
 //        }
         
-        CurrentLocationWeather().getByCurrentLocation({ (result) in
-            print("\(result)")
-            }) { (error) in
-                print("\(error)")
-        }
+//        CurrentLocationWeather().getByCurrentLocation({ (result) in
+//            //print("\(result)")
+//            }) { (error) in
+//                print("\(error)")
+//        }
         
     }
 

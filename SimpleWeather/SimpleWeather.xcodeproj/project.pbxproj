@@ -18,6 +18,11 @@
 		A508D2001CB3152300DE81AE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A508D1FE1CB3152300DE81AE /* Main.storyboard */; };
 		A508D2021CB3152300DE81AE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A508D2011CB3152300DE81AE /* Assets.xcassets */; };
 		A508D2051CB3152300DE81AE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A508D2031CB3152300DE81AE /* LaunchScreen.storyboard */; };
+		A50D0CAB1CB3C37200A84458 /* CurrentLocationRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = A50D0CAA1CB3C37200A84458 /* CurrentLocationRealm.swift */; };
+		A50D0CAD1CB3C38200A84458 /* CurrentLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A50D0CAC1CB3C38200A84458 /* CurrentLocation.swift */; };
+		A526FA671CB393B600E83640 /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A526FA661CB393B600E83640 /* LocationService.swift */; };
+		A55EA2C11CB3CAD4003A7570 /* DetailWeatherViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A55EA2C01CB3CAD4003A7570 /* DetailWeatherViewController.swift */; };
+		A55EA2C31CB3CB38003A7570 /* SearchTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A55EA2C21CB3CB38003A7570 /* SearchTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,6 +40,11 @@
 		A508D2011CB3152300DE81AE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A508D2041CB3152300DE81AE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A508D2061CB3152300DE81AE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A50D0CAA1CB3C37200A84458 /* CurrentLocationRealm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrentLocationRealm.swift; sourceTree = "<group>"; };
+		A50D0CAC1CB3C38200A84458 /* CurrentLocation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrentLocation.swift; sourceTree = "<group>"; };
+		A526FA661CB393B600E83640 /* LocationService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationService.swift; sourceTree = "<group>"; };
+		A55EA2C01CB3CAD4003A7570 /* DetailWeatherViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailWeatherViewController.swift; sourceTree = "<group>"; };
+		A55EA2C21CB3CB38003A7570 /* SearchTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchTableViewController.swift; sourceTree = "<group>"; };
 		FC567047037B977538D2B424 /* Pods-SimpleWeather.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SimpleWeather.release.xcconfig"; path = "Pods/Target Support Files/Pods-SimpleWeather/Pods-SimpleWeather.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -62,6 +72,8 @@
 			isa = PBXGroup;
 			children = (
 				A508D1FC1CB3152300DE81AE /* WeatherTableViewController.swift */,
+				A55EA2C01CB3CAD4003A7570 /* DetailWeatherViewController.swift */,
+				A55EA2C21CB3CB38003A7570 /* SearchTableViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -81,6 +93,8 @@
 				A50096C51CB35AE600F8EAE9 /* LocationWeatherRealm.swift */,
 				A50096C71CB3908E00F8EAE9 /* CurrentLocationWeather.swift */,
 				A50096C91CB3909A00F8EAE9 /* CurrentLocationWeatherRealm.swift */,
+				A50D0CAC1CB3C38200A84458 /* CurrentLocation.swift */,
+				A50D0CAA1CB3C37200A84458 /* CurrentLocationRealm.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -119,11 +133,20 @@
 				A50096BC1CB3234100F8EAE9 /* View */,
 				A50096BF1CB3237900F8EAE9 /* Model */,
 				A50096C01CB3239B00F8EAE9 /* Server */,
+				A526FA651CB3938600E83640 /* Location */,
 				A508D2011CB3152300DE81AE /* Assets.xcassets */,
 				A508D2031CB3152300DE81AE /* LaunchScreen.storyboard */,
 				A508D2061CB3152300DE81AE /* Info.plist */,
 			);
 			path = SimpleWeather;
+			sourceTree = "<group>";
+		};
+		A526FA651CB3938600E83640 /* Location */ = {
+			isa = PBXGroup;
+			children = (
+				A526FA661CB393B600E83640 /* LocationService.swift */,
+			);
+			name = Location;
 			sourceTree = "<group>";
 		};
 		ADC4BB5949C7B51084F00C01 /* Pods */ = {
@@ -171,6 +194,11 @@
 					A508D1F61CB3152300DE81AE = {
 						CreatedOnToolsVersion = 7.3;
 						DevelopmentTeam = DPYQ5KPH7M;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -262,8 +290,13 @@
 				A50096C61CB35AE600F8EAE9 /* LocationWeatherRealm.swift in Sources */,
 				A50096CA1CB3909A00F8EAE9 /* CurrentLocationWeatherRealm.swift in Sources */,
 				A50096C41CB35AD200F8EAE9 /* LocationWeather.swift in Sources */,
+				A526FA671CB393B600E83640 /* LocationService.swift in Sources */,
+				A55EA2C11CB3CAD4003A7570 /* DetailWeatherViewController.swift in Sources */,
+				A50D0CAB1CB3C37200A84458 /* CurrentLocationRealm.swift in Sources */,
+				A55EA2C31CB3CB38003A7570 /* SearchTableViewController.swift in Sources */,
 				A50096C21CB323BB00F8EAE9 /* ServerManager.swift in Sources */,
 				A508D1FB1CB3152300DE81AE /* AppDelegate.swift in Sources */,
+				A50D0CAD1CB3C38200A84458 /* CurrentLocation.swift in Sources */,
 				A50096C81CB3908E00F8EAE9 /* CurrentLocationWeather.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
