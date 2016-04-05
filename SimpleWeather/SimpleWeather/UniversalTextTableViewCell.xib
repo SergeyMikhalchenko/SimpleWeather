@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="UniversalTextTableViewCell" id="bmk-QE-SIh" customClass="UniversalTextTableViewCell" customModule="SimpleWeather">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="80"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="bmk-QE-SIh" id="eHr-as-Bee">
+                <rect key="frame" x="0.0" y="0.0" width="375" height="79"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Text" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4OG-Vc-bar">
+                        <rect key="frame" x="168" y="29" width="40" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="21" id="aUU-bv-xrh"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="4OG-Vc-bar" firstAttribute="centerY" secondItem="eHr-as-Bee" secondAttribute="centerY" id="DAf-UO-Eod"/>
+                    <constraint firstItem="4OG-Vc-bar" firstAttribute="centerX" secondItem="eHr-as-Bee" secondAttribute="centerX" id="KYg-Fh-6GJ"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="mainLabel" destination="4OG-Vc-bar" id="7h2-n9-jxM"/>
+                <outlet property="textLabel" destination="4OG-Vc-bar" id="7l0-BT-voY"/>
+            </connections>
+            <point key="canvasLocation" x="284.5" y="278"/>
+        </tableViewCell>
+    </objects>
+</document>

@@ -67,4 +67,40 @@ class LocationWeather: ServerManager {
 
         return self.realm.objects(LocationWeatherRealm.self)
     }
+    
+    func searchByCityName(name
+        queueName: String!,
+        completion:(result: NSArray) -> Void,
+        failure:(error:NSError!) -> Void) -> NSArray { //Any cache
+        
+        let method = "find"
+        let parameters: [String:AnyObject] = [
+            "q":queueName,
+            "cnt":0,
+            "type":"like",
+            "units":"metric"
+        ]
+        
+        ServerManager.sharedInstance.get(method: method, parameters: parameters, completion: { (response) in
+            completion(result: response!["list"] as! NSArray)
+        }) { (error) in
+            failure(error: error)
+        }
+        
+        return NSArray()
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+

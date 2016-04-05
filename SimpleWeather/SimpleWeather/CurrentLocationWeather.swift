@@ -11,6 +11,9 @@ import RealmSwift
 
 class CurrentLocationWeather: ServerManager {
     
+    var lon: Double = 0
+    var lat: Double = 0
+    
     override init() {
         super.init()
     }
@@ -19,10 +22,15 @@ class CurrentLocationWeather: ServerManager {
         completion:(result: Results<CurrentLocationWeatherRealm>?) -> Void,
         failure:(error:NSError!) -> Void) -> Results<CurrentLocationWeatherRealm>? {
         
+        if let location: Results<CurrentLocationRealm>! = CurrentLocation().getGPSLocation() {
+            self.lon = (location?.first!.longitude)!
+            self.lat = (location?.first?.latitude)!
+        }
+        
         let method = "weather"
         let parameters: [String:AnyObject] = [
-            "lon":0,
-            "lat":52,
+            "lon":self.lon,
+            "lat":self.lat,
             "cnt":1,
             "units":"metric"
         ]

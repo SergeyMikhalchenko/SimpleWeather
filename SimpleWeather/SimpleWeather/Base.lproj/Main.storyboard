@@ -29,6 +29,10 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="Weather" id="RLz-dM-Ouo"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina55"/>
+                    <connections>
+                        <segue destination="ZJD-oY-jIn" kind="show" identifier="loadDetailViewController" id="47y-vS-ksl"/>
+                        <segue destination="jha-Vg-Ezl" kind="show" identifier="loadSearchTableViewController" id="AvH-rT-4V3"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vfR-Np-j7v" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -43,10 +47,11 @@
                         <viewControllerLayoutGuide type="bottom" id="gXS-tM-SIr"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="79V-gh-xx7">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <rect key="frame" x="0.0" y="64" width="414" height="672"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina55"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="L5l-c2-C0r" userLabel="First Responder" sceneMemberID="firstResponder"/>

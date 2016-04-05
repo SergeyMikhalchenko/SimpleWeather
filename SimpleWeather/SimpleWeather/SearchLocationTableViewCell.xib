@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SearchLocationTableViewCell" id="NBG-Zs-WZJ" customClass="SearchLocationTableViewCell" customModule="SimpleWeather" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="80"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="NBG-Zs-WZJ" id="nRy-dS-YfH">
+                <rect key="frame" x="0.0" y="0.0" width="375" height="79"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ums-df-Z6A">
+                        <rect key="frame" x="322" y="25" width="30" height="30"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="30" id="VLf-th-6ta"/>
+                            <constraint firstAttribute="width" constant="30" id="fSh-ro-Uit"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="20"/>
+                        <state key="normal" title="+"/>
+                    </button>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="t" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ekX-l5-NEI">
+                        <rect key="frame" x="184" y="18" width="7" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="21" id="qRz-an-Gpj"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="main" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yIG-WZ-YL8">
+                        <rect key="frame" x="168" y="48" width="39" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="21" id="Li4-jO-OvM"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FEs-4z-utC">
+                        <rect key="frame" x="23" y="29" width="53" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="21" id="83w-0o-WmV"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="yIG-WZ-YL8" firstAttribute="centerX" secondItem="nRy-dS-YfH" secondAttribute="centerX" id="HjO-iE-FBf"/>
+                    <constraint firstAttribute="bottom" secondItem="yIG-WZ-YL8" secondAttribute="bottom" constant="10" id="JRL-1Y-kGX"/>
+                    <constraint firstItem="ekX-l5-NEI" firstAttribute="top" secondItem="nRy-dS-YfH" secondAttribute="topMargin" constant="10" id="RHE-6s-uLp"/>
+                    <constraint firstItem="Ums-df-Z6A" firstAttribute="centerY" secondItem="nRy-dS-YfH" secondAttribute="centerY" id="TrL-lx-BR5"/>
+                    <constraint firstItem="FEs-4z-utC" firstAttribute="leading" secondItem="nRy-dS-YfH" secondAttribute="leadingMargin" constant="15" id="YSd-Uu-ZcT"/>
+                    <constraint firstItem="FEs-4z-utC" firstAttribute="centerY" secondItem="nRy-dS-YfH" secondAttribute="centerY" id="fUt-Bc-QeJ"/>
+                    <constraint firstItem="ekX-l5-NEI" firstAttribute="centerX" secondItem="nRy-dS-YfH" secondAttribute="centerX" id="fkr-aI-kr0"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="Ums-df-Z6A" secondAttribute="trailing" constant="15" id="v3v-hr-k2j"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="addLocationButton" destination="Ums-df-Z6A" id="DlZ-bm-z4q"/>
+                <outlet property="locationName" destination="FEs-4z-utC" id="djA-ot-t6U"/>
+                <outlet property="temperature" destination="ekX-l5-NEI" id="spw-51-XlA"/>
+                <outlet property="weatherDescription" destination="yIG-WZ-YL8" id="NCL-BD-SYu"/>
+            </connections>
+            <point key="canvasLocation" x="313.5" y="231"/>
+        </tableViewCell>
+    </objects>
+</document>
