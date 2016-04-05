@@ -13,27 +13,24 @@ class WeatherTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.loadWeather()
+//        LocationWeather().getByCityID(524901, completion: { (result) in
+//            
+//            print("Success = \(result)")
+//            }) { (error) in
+//                print("failure = \(error)")
+//        }
+        
+        CurrentLocationWeather().getByCurrentLocation({ (result) in
+            print("\(result)")
+            }) { (error) in
+                print("\(error)")
+        }
+        
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
-    }
-
-    func loadWeather() {
-        
-        let metod = "weather"
-        let parameters = [
-            "q":"London"
-        ]
-        
-        ServerManager.sharedInstance.get(
-            method: metod,
-            parameters: parameters
-        ) { (response) in
-                print("response = \(response)")
-        }
     }
 }
 

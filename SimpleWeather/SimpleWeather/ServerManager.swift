@@ -8,6 +8,7 @@
 
 import Foundation
 import Alamofire
+import RealmSwift
 
 class ServerManager: NSObject {
     
@@ -18,8 +19,11 @@ class ServerManager: NSObject {
     
     var baseURL: NSURL!
     
+    let realm: Realm!
+    
     static let sharedInstance = ServerManager()
-    private override init() {
+    override init() {
+        realm = try! Realm()
         super.init()
         
         let baseString = String(format: "%@%@/", apiURL, apiVersion)
@@ -27,10 +31,14 @@ class ServerManager: NSObject {
     }
     
     
-    func get(method method: String, parameters: [String:AnyObject]?, completion: (AnyObject?) -> Void) {
+    func get(method method: String,
+                    parameters: [String:AnyObject]?,
+                    completion: (AnyObject?) -> Void,
+                    failure: (error: NSError!) -> Void) {
         
         var parameters = parameters //Swift 3 will deprecate var varible in function declaration
         parameters!["APPID"] = apiKey
+        parameters!["mode"] = "json"
         
         let request = String(format: "%@%@", baseURL, method)
         
@@ -38,18 +46,24 @@ class ServerManager: NSObject {
             
             guard response.result.isSuccess else {
                 print("GET: Request error = \(response.result.error)")
-                completion(nil)
+                failure(error: response.result.error)
                 return
             }
             
-            print(response.request)  // original URL request
-            print(response.response) // URL response
-            print(response.data)     // server data
-            print(response.result)   // result of response serialization
-            
             if let JSON = response.result.value {
-                print("JSON: \(JSON)")
-                completion(JSON)
+                print("GET: Request successful = \(response.response!.URL!)")
+                
+                if JSON.count == 2 {
+                    
+                    let error = NSError(
+                        domain: JSON["message"] as! String,
+                        code: Int(JSON["cod"] as! String)!,
+                        userInfo: nil)
+                    
+                    failure(error: error)
+                } else {
+                    completion(JSON)
+                }
             }
         }
     }
