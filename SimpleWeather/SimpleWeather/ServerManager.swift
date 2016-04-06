@@ -52,7 +52,13 @@ class ServerManager: NSObject {
             
             if let JSON = response.result.value {
                 print("GET: Request successful = \(response.response!.URL!)")
-                completion(JSON)
+                
+                if let statusCode = response.response?.statusCode {
+                    print("statusCode!!!!!!!!!! = \(statusCode)")
+                    if 200...299 ~= statusCode {
+                        completion(JSON)
+                    }
+                }
             }
         }
     }
