@@ -14,7 +14,6 @@ class LocationWeatherRealm: Object {
     dynamic var id: Int = -1
     dynamic var name: String = ""
     dynamic var country: String = ""
-    dynamic var cod: Int = -1
     
     dynamic var lon: Float = 0
     dynamic var lat: Float = 0

@@ -36,14 +36,14 @@ class WeatherTableViewController: UITableViewController {
             }, failure: { (error) in
                 print("\(error.description)")
         })
-        
-        self.locationWeatherListing = LocationWeather().getByCityID(0, completion: { (result) in
+
+        self.locationWeatherListing = LocationWeather().getLocationsWeather(completion: { (result) in
             
             self.locationWeatherListing = result
             self.tableView.reloadData()
             
             }, failure: { (error) in
-            print("\(error.description)")
+                print("\(error.description)")
         })
     }
 
@@ -64,8 +64,16 @@ class WeatherTableViewController: UITableViewController {
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         switch section {
-            case 0: return 1
-            case 1: return locationWeatherListing.count
+            case 0:
+                if self.currentLocationWeather?.count > 0 {
+                    return 1
+                }
+                return 0
+            case 1:
+                if let count = locationWeatherListing?.count {
+                    return count
+                }
+                return 0
             default: return 0
         }
     }
@@ -88,11 +96,11 @@ class WeatherTableViewController: UITableViewController {
                 cell?.temperature.text = String(format: "t = %3.1f C", temp)
                 cell?.weatherDescription.text = (currentLocationWeather.first?.main)!
             default:
-                cell?.locationName.text = "\((locationWeatherListing.first?.name)!), \((locationWeatherListing.first?.country)!)"
-                let temp = (locationWeatherListing.first?.temp)!
+                cell?.locationName.text = "\(locationWeatherListing[indexPath.row].name), \(locationWeatherListing[indexPath.row].country)"
+                let temp = locationWeatherListing[indexPath.row].temp
                 cell?.temperature.text = String(format: "t = %3.1f C", temp)
-                cell?.weatherDescription.text = (locationWeatherListing.first?.main)!
-                cell?.locationID = (locationWeatherListing.first?.id)
+                cell?.weatherDescription.text = locationWeatherListing[indexPath.row].main
+                cell?.locationID = locationWeatherListing[indexPath.row].id
             }
             
             return cell!

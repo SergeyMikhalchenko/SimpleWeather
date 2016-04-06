@@ -28,10 +28,10 @@ class SearchLocationTableViewCell: UITableViewCell {
     
     @IBAction func addButtonPressed(sender: UIButton) {
         
-//        LocationWeather().getByCityID(self.cityID, completion: { (result) in
-//            print("getByCityID success")
-//            }) { (error) in
-//                
-//        }
+        LocationWeather().getByCityID(self.cityID, completion: { (result) in
+            print("getByCityID success")
+            }) { (error) in
+                print(error.description)
+        }
     }
 }

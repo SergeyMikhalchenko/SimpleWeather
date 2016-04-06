@@ -15,6 +15,69 @@ class LocationWeather: ServerManager {
         super.init()
     }
     
+    func getLocationsWeather(completion
+        completion:(result: Results<LocationWeatherRealm>) -> Void,
+        failure:(error:NSError!) -> Void) -> Results<LocationWeatherRealm> {
+        
+        var locationsID = [String]()
+        let locations = self.realm.objects(LocationWeatherRealm.self)
+        
+        for location in locations {
+            locationsID += ["\(location.id)"]
+        }
+        let ids = locationsID.joinWithSeparator(",")
+        
+        let method = "group"
+        
+        let parameters: [String:AnyObject] = [
+            "id":ids,
+            "units":"metric"
+        ]
+        
+        ServerManager.sharedInstance.get(method: method, parameters: parameters, completion: { (response) in
+            
+
+            let result = response as! Dictionary<String, AnyObject>
+            let locations: Array = result["list"] as! Array<Dictionary<String, AnyObject>>
+            
+            for location in locations {
+                
+                self.realm.beginWrite()
+                let locationWeather = LocationWeatherRealm()
+                
+                locationWeather.id = location["id"] as! Int
+                locationWeather.name = location["name"] as! String
+                locationWeather.country = location["sys"]!["country"] as! String
+                locationWeather.lon = location["coord"]!["lon"] as! Float
+                locationWeather.lat = location["coord"]!["lat"] as! Float
+                locationWeather.dt = location["dt"] as! Double
+                locationWeather.sunrise = location["sys"]!["sunrise"] as! Double
+                locationWeather.sunset = location["sys"]!["sunset"] as! Double
+                
+                locationWeather.main = ((location["weather"] as! NSArray).firstObject as! NSDictionary).objectForKey("main") as! String
+                locationWeather.mainDescription = ((location["weather"] as! NSArray).firstObject as! NSDictionary).objectForKey("description") as! String
+                locationWeather.temp = (location["main"] as! NSDictionary).objectForKey("temp") as! Float
+                locationWeather.pressure = (location["main"] as! NSDictionary).objectForKey("pressure") as! Float
+                locationWeather.humidity = (location["main"] as! NSDictionary).objectForKey("humidity") as! Int
+                
+                locationWeather.temp_min = (location["main"] as! NSDictionary).objectForKey("temp_min") as! Float
+                locationWeather.temp_max = (location["main"] as! NSDictionary).objectForKey("temp_max") as! Float
+                
+                locationWeather.wind_speed = (location["wind"] as! NSDictionary).objectForKey("speed") as! Float
+                locationWeather.clouds_all = (location["clouds"] as! NSDictionary).objectForKey("all") as! Int
+                
+                self.realm.add(locationWeather, update: true)
+                try! self.realm.commitWrite()
+            }
+            
+            completion(result: self.realm.objects(LocationWeatherRealm.self))
+            }, failure: { (error) in
+                failure(error: error)
+        })
+        
+        return self.realm.objects(LocationWeatherRealm.self)
+    }
+    
     func getByCityID(
         id:Int,
         completion:(result: Results<LocationWeatherRealm>?) -> Void,
@@ -37,7 +100,6 @@ class LocationWeather: ServerManager {
                 locationWeather.id = result["id"] as! Int
                 locationWeather.name = result["name"] as! String
                 locationWeather.country = (result["sys"] as! NSDictionary).objectForKey("country") as! String
-                locationWeather.cod = result["cod"] as! Int
                 locationWeather.lon = result["coord"]!["lon"] as! Float
                 locationWeather.lat = result["coord"]!["lat"] as! Float
                 locationWeather.dt = result["dt"] as! Double

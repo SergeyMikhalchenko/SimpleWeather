@@ -23,8 +23,12 @@ class CurrentLocationWeather: ServerManager {
         failure:(error:NSError!) -> Void) -> Results<CurrentLocationWeatherRealm>? {
         
         if let location: Results<CurrentLocationRealm>! = CurrentLocation().getGPSLocation() {
-            self.lon = (location?.first!.longitude)!
-            self.lat = (location?.first?.latitude)!
+            if let lon = location?.first?.longitude {
+                self.lon = lon
+            }
+            if let lat = location?.first?.latitude {
+                self.lat = lat
+            }
         }
         
         let method = "weather"
