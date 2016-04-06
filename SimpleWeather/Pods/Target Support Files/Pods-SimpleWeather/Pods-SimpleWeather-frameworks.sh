@@ -85,12 +85,14 @@ strip_invalid_archs() {
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "Pods-SimpleWeather/Alamofire.framework"
+  install_framework "Pods-SimpleWeather/ReachabilitySwift.framework"
   install_framework "Pods-SimpleWeather/Realm.framework"
   install_framework "Pods-SimpleWeather/RealmSwift.framework"
   install_framework "Pods-SimpleWeather/Whisper.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "Pods-SimpleWeather/Alamofire.framework"
+  install_framework "Pods-SimpleWeather/ReachabilitySwift.framework"
   install_framework "Pods-SimpleWeather/Realm.framework"
   install_framework "Pods-SimpleWeather/RealmSwift.framework"
   install_framework "Pods-SimpleWeather/Whisper.framework"

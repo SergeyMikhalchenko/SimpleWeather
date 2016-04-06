@@ -15,6 +15,8 @@ class LocationTableViewCell: UITableViewCell {
     @IBOutlet weak var temperature: UILabel!
     @IBOutlet weak var weatherDescription: UILabel!
     
+    @IBOutlet weak var mainView: UIView!
+    
     var locationID: Int!
     
     required init?(coder aDecoder: NSCoder) {
@@ -23,5 +25,7 @@ class LocationTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        self.mainView.layer.cornerRadius = 10
+        self.mainView.clipsToBounds = true
     }
 }

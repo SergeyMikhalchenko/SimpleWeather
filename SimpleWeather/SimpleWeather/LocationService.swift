@@ -35,7 +35,7 @@ class LocationService: NSObject {
         
         self.startUpdatingLocation()
         self.timer = NSTimer.scheduledTimerWithTimeInterval(
-            600.0,
+            300.0,
             target: self,
             selector: #selector(LocationService.updateLocationWithTimer),
             userInfo: nil,

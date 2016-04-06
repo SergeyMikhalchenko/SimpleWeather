@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import Whisper
 
 class SearchTableViewController: UITableViewController, UISearchResultsUpdating {
 
@@ -82,9 +83,10 @@ class SearchTableViewController: UITableViewController, UISearchResultsUpdating 
                             cell?.locationName.text = "\((location["name"])!)"
                         }
                         let temp = ((location["main"] as! NSDictionary).objectForKey("temp"))!
-                        cell?.temperature.text = String(format: "t = %3.1f C", temp as! Float)
+                        cell?.temperature.text = String(format: "Temperature: %3.1f C", temp as! Float)
                         cell?.weatherDescription.text = "\((location["weather"] as! NSArray).firstObject!.objectForKey("main")!)"
                         cell?.cityID = location["id"] as! Int
+                        cell?.selectionStyle = .None
                         
                         return cell!
                     } else {
@@ -96,6 +98,7 @@ class SearchTableViewController: UITableViewController, UISearchResultsUpdating 
                         }
                         
                         cell?.setLabelText("Sorry. Any result for your request. Try again.")
+                        cell?.selectionStyle = .None
                         
                         return cell!
                     }
@@ -110,6 +113,7 @@ class SearchTableViewController: UITableViewController, UISearchResultsUpdating 
                 }
                 
                 cell?.setLabelText("Start typing name of location in search field.")
+                cell?.selectionStyle = .None
                 
                 return cell!
             }
@@ -134,20 +138,37 @@ class SearchTableViewController: UITableViewController, UISearchResultsUpdating 
         let queue = (searchController.searchBar.text!).lowercaseString
         
         if queue.characters.count > 2 {
-            LocationWeather().searchByCityName(name: queue, completion: { (result) in
+            
+            if Reachability.connectedToNetwork() {
                 
-                self.searchResults = []
-                self.searchResults = result
-                
-                
+                LocationWeather().searchByCityName(name: queue, completion: { (result) in
+                    
+                    self.searchResults = []
+                    self.searchResults = result
+                    self.tableView.reloadData()
+                    
                 }) { (error) in
                     print("\(error.description)")
+                    self.tableView.reloadData()
+                }
+                
+            } else {
+                
+                let message = Murmur(
+                    title: "No internet connection.",
+                    duration: 1.5,
+                    backgroundColor: UIColor.lightGrayColor(),
+                    titleColor: UIColor.blackColor(),
+                    font:  UIFont.systemFontOfSize(12)
+                )
+                
+                Whistle(message)
             }
+
         } else {
             self.searchResults = []
+            self.tableView.reloadData()
         }
-            
-        self.tableView.reloadData()
     }
     
 }

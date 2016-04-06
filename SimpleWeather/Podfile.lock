@@ -1,5 +1,6 @@
 PODS:
   - Alamofire (3.3.0)
+  - ReachabilitySwift (2.3.3)
   - Realm (0.98.6):
     - Realm/Headers (= 0.98.6)
   - Realm/Headers (0.98.6)
@@ -9,12 +10,23 @@ PODS:
 
 DEPENDENCIES:
   - Alamofire (~> 3.0)
+  - ReachabilitySwift (from `https://github.com/ashleymills/Reachability.swift`)
   - Realm
   - RealmSwift
   - Whisper
 
+EXTERNAL SOURCES:
+  ReachabilitySwift:
+    :git: https://github.com/ashleymills/Reachability.swift
+
+CHECKOUT OPTIONS:
+  ReachabilitySwift:
+    :commit: fa90df50c04f5743fbdf643cbe8d10562d75673d
+    :git: https://github.com/ashleymills/Reachability.swift
+
 SPEC CHECKSUMS:
   Alamofire: 9054db4a1b1ca9e363223183e01cea380159a27c
+  ReachabilitySwift: e0f6b6f280effb47731acfaaa2d5ffe223703793
   Realm: 44803f35418c5d89b27825a564247fcd190de37e
   RealmSwift: c7239c52c83f8c43525a5269ba7be1694da33afc
   Whisper: 18b574de21a089c0d664b115f26e0d9ccbbadbab

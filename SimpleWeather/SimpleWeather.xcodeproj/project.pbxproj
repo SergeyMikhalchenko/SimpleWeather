@@ -29,6 +29,7 @@
 		A545CFE91CB3F51D003CA68E /* UniversalTextTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A545CFE81CB3F51D003CA68E /* UniversalTextTableViewCell.xib */; };
 		A55EA2C11CB3CAD4003A7570 /* DetailWeatherViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A55EA2C01CB3CAD4003A7570 /* DetailWeatherViewController.swift */; };
 		A55EA2C31CB3CB38003A7570 /* SearchTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A55EA2C21CB3CB38003A7570 /* SearchTableViewController.swift */; };
+		A577722C1CB504FF0059F0DA /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = A577722B1CB504FF0059F0DA /* Reachability.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -57,6 +58,7 @@
 		A545CFE81CB3F51D003CA68E /* UniversalTextTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UniversalTextTableViewCell.xib; sourceTree = "<group>"; };
 		A55EA2C01CB3CAD4003A7570 /* DetailWeatherViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailWeatherViewController.swift; sourceTree = "<group>"; };
 		A55EA2C21CB3CB38003A7570 /* SearchTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchTableViewController.swift; sourceTree = "<group>"; };
+		A577722B1CB504FF0059F0DA /* Reachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
 		FC567047037B977538D2B424 /* Pods-SimpleWeather.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SimpleWeather.release.xcconfig"; path = "Pods/Target Support Files/Pods-SimpleWeather/Pods-SimpleWeather.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -147,6 +149,7 @@
 				A50096BF1CB3237900F8EAE9 /* Model */,
 				A50096C01CB3239B00F8EAE9 /* Server */,
 				A526FA651CB3938600E83640 /* Location */,
+				A577722A1CB504BD0059F0DA /* Tools */,
 				A508D2011CB3152300DE81AE /* Assets.xcassets */,
 				A508D2031CB3152300DE81AE /* LaunchScreen.storyboard */,
 				A508D2061CB3152300DE81AE /* Info.plist */,
@@ -173,6 +176,14 @@
 				A545CFE81CB3F51D003CA68E /* UniversalTextTableViewCell.xib */,
 			);
 			name = Cell;
+			sourceTree = "<group>";
+		};
+		A577722A1CB504BD0059F0DA /* Tools */ = {
+			isa = PBXGroup;
+			children = (
+				A577722B1CB504FF0059F0DA /* Reachability.swift */,
+			);
+			name = Tools;
 			sourceTree = "<group>";
 		};
 		ADC4BB5949C7B51084F00C01 /* Pods */ = {
@@ -329,6 +340,7 @@
 				A545CFE51CB3F2FD003CA68E /* SearchLocationTableViewCell.swift in Sources */,
 				A508D1FB1CB3152300DE81AE /* AppDelegate.swift in Sources */,
 				A50D0CAD1CB3C38200A84458 /* CurrentLocation.swift in Sources */,
+				A577722C1CB504FF0059F0DA /* Reachability.swift in Sources */,
 				A50096C81CB3908E00F8EAE9 /* CurrentLocationWeather.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

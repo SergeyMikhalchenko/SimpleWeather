@@ -51,7 +51,6 @@ class CurrentLocationWeather: ServerManager {
                 locationWeather.id = result["id"] as! Int
                 locationWeather.name = result["name"] as! String
                 locationWeather.country = (result["sys"] as! NSDictionary).objectForKey("country") as! String
-                locationWeather.cod = result["cod"] as! Int
                 locationWeather.lon = result["coord"]!["lon"] as! Float
                 locationWeather.lat = result["coord"]!["lat"] as! Float
                 locationWeather.dt = result["dt"] as! Double
@@ -80,5 +79,9 @@ class CurrentLocationWeather: ServerManager {
         })
         
         return self.realm.objects(CurrentLocationWeatherRealm.self)
+    }
+    
+    func getLocationFromCache(id id: Int) -> Results<CurrentLocationWeatherRealm> {
+        return self.realm.objects(CurrentLocationWeatherRealm.self).filter("id == \(id)")
     }
 }

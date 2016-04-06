@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import Whisper
 
 class SearchLocationTableViewCell: UITableViewCell {
 
@@ -24,14 +25,32 @@ class SearchLocationTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        
+        self.addLocationButton.layer.cornerRadius = self.addLocationButton.bounds.height / 2.0
+        self.addLocationButton.clipsToBounds = true
     }
     
     @IBAction func addButtonPressed(sender: UIButton) {
         
-        LocationWeather().getByCityID(self.cityID, completion: { (result) in
-            print("getByCityID success")
+        if Reachability.connectedToNetwork() {
+            
+            LocationWeather().getByCityID(self.cityID, completion: { (result) in
+                print("getByCityID success")
             }) { (error) in
                 print(error.description)
+            }
+            
+        } else {
+            
+            let message = Murmur(
+                title: "No internet connection.",
+                duration: 1.5,
+                backgroundColor: UIColor.lightGrayColor(),
+                titleColor: UIColor.blackColor(),
+                font:  UIFont.systemFontOfSize(12)
+            )
+            
+            Whistle(message)
         }
     }
 }

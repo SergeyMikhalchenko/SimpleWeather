@@ -162,6 +162,10 @@ class LocationWeather: ServerManager {
 
         completion(result: self.realm.objects(LocationWeatherRealm.self))
     }
+    
+    func getLocationFromCache(id id: Int) -> Results<LocationWeatherRealm> {
+        return self.realm.objects(LocationWeatherRealm.self).filter("id == \(id)")
+    }
 }
 
 
