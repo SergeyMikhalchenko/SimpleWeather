@@ -181,6 +181,8 @@ class WeatherTableViewController: UITableViewController {
                     
                     cell?.mainLabel.text = "Press \"Search\" to find and add locations."
                     
+                    cell?.userInteractionEnabled = false
+                    
                     return cell!
                 }
             }

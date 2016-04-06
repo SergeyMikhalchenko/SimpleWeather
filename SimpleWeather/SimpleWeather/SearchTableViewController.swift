@@ -140,7 +140,7 @@ class SearchTableViewController: UITableViewController, UISearchResultsUpdating 
         if queue.characters.count > 2 {
             
             if Reachability.connectedToNetwork() {
-                
+                self.searchResults = []
                 LocationWeather().searchByCityName(name: queue, completion: { (result) in
                     
                     self.searchResults = []
