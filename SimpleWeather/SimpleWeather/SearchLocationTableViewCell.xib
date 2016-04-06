@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SearchLocationTableViewCell" id="NBG-Zs-WZJ" customClass="SearchLocationTableViewCell" customModule="SimpleWeather" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="80"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="NBG-Zs-WZJ" id="nRy-dS-YfH">
+                <rect key="frame" x="0.0" y="0.0" width="375" height="79"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" reversesTitleShadowWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ums-df-Z6A">
+                        <rect key="frame" x="292" y="25" width="60" height="30"/>
+                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="30" id="VLf-th-6ta"/>
+                            <constraint firstAttribute="width" constant="60" id="fSh-ro-Uit"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
+                        <state key="normal" title="Add">
+                            <color key="titleColor" red="0.023529411760000001" green="0.32549019610000002" blue="0.50588235290000005" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="titleShadowColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        </state>
+                        <connections>
+                            <action selector="addButtonPressed:" destination="NBG-Zs-WZJ" eventType="touchUpInside" id="gRT-ap-JC8"/>
+                        </connections>
+                    </button>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="t" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ekX-l5-NEI">
+                        <rect key="frame" x="25" y="35" width="5" height="15"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="15" id="a28-Aa-XW0"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FEs-4z-utC">
+                        <rect key="frame" x="25" y="9" width="48" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="21" id="83w-0o-WmV"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="main" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yIG-WZ-YL8">
+                        <rect key="frame" x="25" y="55" width="28" height="15"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="15" id="SNw-e7-Yw6"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="Ums-df-Z6A" firstAttribute="centerY" secondItem="nRy-dS-YfH" secondAttribute="centerY" id="TrL-lx-BR5"/>
+                    <constraint firstItem="ekX-l5-NEI" firstAttribute="top" secondItem="FEs-4z-utC" secondAttribute="bottom" constant="5" id="USZ-PK-uIM"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="Ums-df-Z6A" secondAttribute="trailing" constant="15" id="VmC-Jb-AN9"/>
+                    <constraint firstItem="ekX-l5-NEI" firstAttribute="leading" secondItem="nRy-dS-YfH" secondAttribute="leading" constant="25" id="XHG-Kf-Iwz"/>
+                    <constraint firstItem="FEs-4z-utC" firstAttribute="leading" secondItem="nRy-dS-YfH" secondAttribute="leading" constant="25" id="YSd-Uu-ZcT"/>
+                    <constraint firstItem="FEs-4z-utC" firstAttribute="centerY" secondItem="nRy-dS-YfH" secondAttribute="centerY" constant="-20" id="fUt-Bc-QeJ"/>
+                    <constraint firstItem="yIG-WZ-YL8" firstAttribute="leading" secondItem="nRy-dS-YfH" secondAttribute="leading" constant="25" id="gG5-Cy-3Zm"/>
+                    <constraint firstItem="yIG-WZ-YL8" firstAttribute="top" secondItem="ekX-l5-NEI" secondAttribute="bottom" constant="5" id="hp3-jP-sUt"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="Ums-df-Z6A" secondAttribute="trailing" constant="15" id="v3v-hr-k2j"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="addLocationButton" destination="Ums-df-Z6A" id="DlZ-bm-z4q"/>
+                <outlet property="locationName" destination="FEs-4z-utC" id="djA-ot-t6U"/>
+                <outlet property="temperature" destination="ekX-l5-NEI" id="spw-51-XlA"/>
+                <outlet property="weatherDescription" destination="yIG-WZ-YL8" id="NCL-BD-SYu"/>
+            </connections>
+            <point key="canvasLocation" x="313.5" y="231"/>
+        </tableViewCell>
+    </objects>
+</document>
