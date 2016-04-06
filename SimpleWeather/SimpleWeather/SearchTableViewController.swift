@@ -50,7 +50,7 @@ class SearchTableViewController: UITableViewController, UISearchResultsUpdating 
         switch section {
         case 0:
             if searchController.active {
-                return searchResults.count
+                return searchResults.count > 0 ? searchResults.count : 1
             } else {
                 return 1
             }
@@ -76,7 +76,7 @@ class SearchTableViewController: UITableViewController, UISearchResultsUpdating 
                         let location = searchResults[indexPath.row] as! NSDictionary
                         
                         
-                        if let country = location["country"] {
+                        if let country = (location["sys"] as! NSDictionary).objectForKey("country") {
                              cell?.locationName.text = "\((location["name"])!) \(country)"
                         } else {
                             cell?.locationName.text = "\((location["name"])!)"
@@ -95,8 +95,7 @@ class SearchTableViewController: UITableViewController, UISearchResultsUpdating 
                             cell = tableView.dequeueReusableCellWithIdentifier(identifier) as? UniversalTextTableViewCell
                         }
                         
-                        cell?.mainLabel.text = "Sorry. Any result for your request. Try again."
-                        cell?.mainLabel.sizeToFit()
+                        cell?.setLabelText("Sorry. Any result for your request. Try again.")
                         
                         return cell!
                     }
@@ -110,8 +109,7 @@ class SearchTableViewController: UITableViewController, UISearchResultsUpdating 
                     cell = tableView.dequeueReusableCellWithIdentifier(identifier) as? UniversalTextTableViewCell
                 }
                 
-                cell?.mainLabel.text = "Start typing name of location in search field"
-                cell?.mainLabel.sizeToFit()
+                cell?.setLabelText("Start typing name of location in search field.")
                 
                 return cell!
             }
@@ -133,19 +131,22 @@ class SearchTableViewController: UITableViewController, UISearchResultsUpdating 
     
     func updateSearchResultsForSearchController(searchController: UISearchController) {
         
-        //self.friendsSearchResults.removeAll(keepCapacity: false)
-        
         let queue = (searchController.searchBar.text!).lowercaseString
         
-        LocationWeather().searchByCityName(name: queue, completion: { (result) in
-            
+        if queue.characters.count > 2 {
+            LocationWeather().searchByCityName(name: queue, completion: { (result) in
+                
+                self.searchResults = []
+                self.searchResults = result
+                
+                
+                }) { (error) in
+                    print("\(error.description)")
+            }
+        } else {
             self.searchResults = []
-            self.searchResults = result
-            
-            }) { (error) in
-                print("\(error.description)")
         }
-        
+            
         self.tableView.reloadData()
     }
     

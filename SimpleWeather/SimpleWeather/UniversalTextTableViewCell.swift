@@ -21,4 +21,9 @@ class UniversalTextTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
     }
+    
+    func setLabelText(text: String) {
+        self.mainLabel.text = text
+        self.mainLabel.sizeToFit()
+    }
 }

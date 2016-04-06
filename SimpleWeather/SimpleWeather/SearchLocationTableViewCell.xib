@@ -22,6 +22,9 @@
                         </constraints>
                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="20"/>
                         <state key="normal" title="+"/>
+                        <connections>
+                            <action selector="addButtonPressed:" destination="NBG-Zs-WZJ" eventType="touchUpInside" id="gRT-ap-JC8"/>
+                        </connections>
                     </button>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="t" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ekX-l5-NEI">
                         <rect key="frame" x="184" y="18" width="7" height="21"/>
@@ -56,6 +59,7 @@
                     <constraint firstAttribute="bottom" secondItem="yIG-WZ-YL8" secondAttribute="bottom" constant="10" id="JRL-1Y-kGX"/>
                     <constraint firstItem="ekX-l5-NEI" firstAttribute="top" secondItem="nRy-dS-YfH" secondAttribute="topMargin" constant="10" id="RHE-6s-uLp"/>
                     <constraint firstItem="Ums-df-Z6A" firstAttribute="centerY" secondItem="nRy-dS-YfH" secondAttribute="centerY" id="TrL-lx-BR5"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="Ums-df-Z6A" secondAttribute="trailing" constant="15" id="VmC-Jb-AN9"/>
                     <constraint firstItem="FEs-4z-utC" firstAttribute="leading" secondItem="nRy-dS-YfH" secondAttribute="leadingMargin" constant="15" id="YSd-Uu-ZcT"/>
                     <constraint firstItem="FEs-4z-utC" firstAttribute="centerY" secondItem="nRy-dS-YfH" secondAttribute="centerY" id="fUt-Bc-QeJ"/>
                     <constraint firstItem="ekX-l5-NEI" firstAttribute="centerX" secondItem="nRy-dS-YfH" secondAttribute="centerX" id="fkr-aI-kr0"/>

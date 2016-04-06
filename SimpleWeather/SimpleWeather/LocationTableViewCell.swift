@@ -14,7 +14,8 @@ class LocationTableViewCell: UITableViewCell {
     @IBOutlet weak var locationName: UILabel!
     @IBOutlet weak var temperature: UILabel!
     @IBOutlet weak var weatherDescription: UILabel!
-    @IBOutlet weak var currentLocationLabel: UILabel!
+    
+    var locationID: Int!
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)

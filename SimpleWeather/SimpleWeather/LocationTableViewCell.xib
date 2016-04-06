@@ -29,15 +29,6 @@
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eUG-ME-QK5">
-                        <rect key="frame" x="188" y="8" width="0.0" height="21"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="21" id="yHd-B4-VTZ"/>
-                        </constraints>
-                        <fontDescription key="fontDescription" type="system" pointSize="10"/>
-                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                        <nil key="highlightedColor"/>
-                    </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="description" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zPB-on-nY6">
                         <rect key="frame" x="253" y="40" width="86" height="21"/>
                         <constraints>
@@ -55,13 +46,10 @@
                     <constraint firstItem="tpe-w1-em0" firstAttribute="centerY" secondItem="wd6-wK-bf5" secondAttribute="centerY" constant="-18" id="JVe-Hk-Xgb"/>
                     <constraint firstItem="zPB-on-nY6" firstAttribute="centerX" secondItem="wd6-wK-bf5" secondAttribute="centerX" constant="108" id="YXp-bP-Qsj"/>
                     <constraint firstItem="g7n-RV-dEl" firstAttribute="leading" secondItem="wd6-wK-bf5" secondAttribute="leadingMargin" constant="15" id="dl9-Nc-lFx"/>
-                    <constraint firstItem="eUG-ME-QK5" firstAttribute="centerY" secondItem="wd6-wK-bf5" secondAttribute="centerY" constant="-21" id="eXb-B8-4i7"/>
                     <constraint firstItem="g7n-RV-dEl" firstAttribute="centerY" secondItem="wd6-wK-bf5" secondAttribute="centerY" id="ir0-1a-WAH"/>
-                    <constraint firstItem="eUG-ME-QK5" firstAttribute="centerX" secondItem="wd6-wK-bf5" secondAttribute="centerX" id="r2A-AT-IYe"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
-                <outlet property="currentLocationLabel" destination="eUG-ME-QK5" id="nZ2-zn-Axe"/>
                 <outlet property="locationName" destination="g7n-RV-dEl" id="QaP-sp-YGt"/>
                 <outlet property="temperature" destination="tpe-w1-em0" id="9EG-Y0-J1W"/>
                 <outlet property="weatherDescription" destination="zPB-on-nY6" id="F79-M5-r2r"/>

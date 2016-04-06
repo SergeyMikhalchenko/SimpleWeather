@@ -41,7 +41,7 @@ class ServerManager: NSObject {
         parameters!["mode"] = "json"
         
         let request = String(format: "%@%@", baseURL, method)
-        
+                
         Alamofire.request(.GET, request, parameters: parameters).responseJSON { (response) in
             
             guard response.result.isSuccess else {

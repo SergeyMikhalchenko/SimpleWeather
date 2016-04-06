@@ -25,4 +25,13 @@ class SearchLocationTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
     }
+    
+    @IBAction func addButtonPressed(sender: UIButton) {
+        
+//        LocationWeather().getByCityID(self.cityID, completion: { (result) in
+//            print("getByCityID success")
+//            }) { (error) in
+//                
+//        }
+    }
 }

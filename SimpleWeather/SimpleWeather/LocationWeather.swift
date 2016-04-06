@@ -31,7 +31,7 @@ class LocationWeather: ServerManager {
             let result = response as! Dictionary<String, AnyObject>
             
             self.realm.beginWrite()
-            //self.realm.delete(self.realm.objects(LocationWeatherRealm.self))
+            self.realm.delete(self.realm.objects(LocationWeatherRealm.self).filter("id == \(id)"))
                 let locationWeather = LocationWeatherRealm()
                 
                 locationWeather.id = result["id"] as! Int
@@ -69,14 +69,14 @@ class LocationWeather: ServerManager {
     }
     
     func searchByCityName(name
-        queueName: String!,
+        queueName: String,
         completion:(result: NSArray) -> Void,
         failure:(error:NSError!) -> Void) -> NSArray { //Any cache
         
         let method = "find"
         let parameters: [String:AnyObject] = [
             "q":queueName,
-            "cnt":0,
+            "cnt":10,
             "type":"like",
             "units":"metric"
         ]
@@ -88,6 +88,17 @@ class LocationWeather: ServerManager {
         }
         
         return NSArray()
+    }
+    
+    func deleteLocation(locationID
+        id: Int,
+        completion:(result: Results<LocationWeatherRealm>) -> Void) {
+
+        self.realm.beginWrite()
+        self.realm.delete(self.realm.objects(LocationWeatherRealm.self).filter("id == \(id)"))
+        try! self.realm.commitWrite()
+
+        completion(result: self.realm.objects(LocationWeatherRealm.self))
     }
 }
 
