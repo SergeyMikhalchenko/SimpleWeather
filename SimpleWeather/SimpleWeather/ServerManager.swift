@@ -52,18 +52,7 @@ class ServerManager: NSObject {
             
             if let JSON = response.result.value {
                 print("GET: Request successful = \(response.response!.URL!)")
-                
-                if JSON.count < 2 {
-                    
-                    let error = NSError(
-                        domain: JSON["message"] as! String,
-                        code: Int(JSON["cod"] as! String)!,
-                        userInfo: nil)
-                    
-                    failure(error: error)
-                } else {
-                    completion(JSON)
-                }
+                completion(JSON)
             }
         }
     }
