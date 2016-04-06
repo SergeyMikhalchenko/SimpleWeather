@@ -23,6 +23,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 <constraints>
                     <constraint firstItem="4OG-Vc-bar" firstAttribute="leading" secondItem="eHr-as-Bee" secondAttribute="leading" id="1uj-Or-Kuk"/>
                     <constraint firstItem="4OG-Vc-bar" firstAttribute="centerY" secondItem="eHr-as-Bee" secondAttribute="centerY" id="DAf-UO-Eod"/>
@@ -30,6 +31,7 @@
                     <constraint firstAttribute="trailing" secondItem="4OG-Vc-bar" secondAttribute="trailing" id="aqv-UH-YrQ"/>
                 </constraints>
             </tableViewCellContentView>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <connections>
                 <outlet property="mainLabel" destination="4OG-Vc-bar" id="7h2-n9-jxM"/>
                 <outlet property="textLabel" destination="4OG-Vc-bar" id="7l0-BT-voY"/>

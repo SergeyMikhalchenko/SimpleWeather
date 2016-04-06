@@ -8,6 +8,7 @@
 
 import Foundation
 import RealmSwift
+import Alamofire
 
 class LocationWeather: ServerManager {
 
@@ -36,7 +37,6 @@ class LocationWeather: ServerManager {
         
         ServerManager.sharedInstance.get(method: method, parameters: parameters, completion: { (response) in
             
-
             let result = response as! Dictionary<String, AnyObject>
             let locations: Array = result["list"] as! Array<Dictionary<String, AnyObject>>
             

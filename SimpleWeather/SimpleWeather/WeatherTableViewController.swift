@@ -16,6 +16,8 @@ class WeatherTableViewController: UITableViewController {
     var currentLocationWeather: Results<CurrentLocationWeatherRealm>!
     var locationWeatherListing: Results<LocationWeatherRealm>!
 
+    var locationServiceAvailable: Bool = false
+    
     var refresherControl: UIRefreshControl!
     
     override func viewDidLoad() {
@@ -34,6 +36,8 @@ class WeatherTableViewController: UITableViewController {
 
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(true)
+        
+        self.locationServiceAvailable = CurrentLocation().isServiceAvailable()
         
         self.currentLocationWeather = CurrentLocationWeather().getByCurrentLocation({ (result) in
             
@@ -58,6 +62,8 @@ class WeatherTableViewController: UITableViewController {
     
     func refresh(sender: AnyObject) {
         
+        self.locationServiceAvailable = CurrentLocation().isServiceAvailable()
+
         if Reachability.connectedToNetwork() {
             
             CurrentLocationWeather().getByCurrentLocation({ (result) in
@@ -120,15 +126,12 @@ class WeatherTableViewController: UITableViewController {
         
         switch section {
             case 0:
-                if self.currentLocationWeather?.count > 0 {
-                    return 1
-                }
-                return 0
+                return 1
             case 1:
-                if let count = locationWeatherListing?.count {
-                    return count
+                if locationWeatherListing?.count > 0 {
+                    return (locationWeatherListing?.count)!
                 }
-                return 0
+                return 1
             default: return 0
         }
     }
@@ -146,17 +149,40 @@ class WeatherTableViewController: UITableViewController {
             
             switch indexPath.section {
             case 0:
-                cell?.locationName.text = "\((currentLocationWeather.first?.name)!), \((currentLocationWeather.first?.country)!)"
-                let temp = (currentLocationWeather.first?.temp)!
-                cell?.temperature.text = String(format: "Temperature: %3.1f C", temp)
-                cell?.weatherDescription.text = (currentLocationWeather.first?.main)!
-                cell?.locationID = (currentLocationWeather.first?.id)!
+                if (locationServiceAvailable && !currentLocationWeather.isEmpty) {
+                    cell?.locationName.text = "\((currentLocationWeather.first?.name)!), \((currentLocationWeather.first?.country)!)"
+                    let temp = (currentLocationWeather.first?.temp)!
+                    cell?.temperature.text = String(format: "Temperature: %3.1f C", temp)
+                    cell?.weatherDescription.text = (currentLocationWeather.first?.main)!
+                    cell?.locationID = (currentLocationWeather.first?.id)!
+                    cell?.userInteractionEnabled = true
+                } else {
+                    cell?.locationName.text = "Location unavailable."
+                    cell?.temperature.text = String(format: "Temperature: Unknown")
+                    cell?.weatherDescription.text = "Please, pull to refresh."
+                    cell?.locationID = 0
+                    cell?.userInteractionEnabled = false
+                }
             default:
-                cell?.locationName.text = "\(locationWeatherListing[indexPath.row].name), \(locationWeatherListing[indexPath.row].country)"
-                let temp = locationWeatherListing[indexPath.row].temp
-                cell?.temperature.text = String(format: "Temperature: %3.1f C", temp)
-                cell?.weatherDescription.text = locationWeatherListing[indexPath.row].main
-                cell?.locationID = locationWeatherListing[indexPath.row].id
+                
+                if locationWeatherListing?.count > 0 {
+                    cell?.locationName.text = "\(locationWeatherListing[indexPath.row].name), \(locationWeatherListing[indexPath.row].country)"
+                    let temp = locationWeatherListing[indexPath.row].temp
+                    cell?.temperature.text = String(format: "Temperature: %3.1f C", temp)
+                    cell?.weatherDescription.text = locationWeatherListing[indexPath.row].main
+                    cell?.locationID = locationWeatherListing[indexPath.row].id
+                } else {
+                    let identifier = "UniversalTextTableViewCell"
+                    var cell = tableView.dequeueReusableCellWithIdentifier(identifier) as? UniversalTextTableViewCell
+                    if cell == nil {
+                        tableView.registerNib(UINib(nibName: identifier, bundle: nil), forCellReuseIdentifier: identifier)
+                        cell = tableView.dequeueReusableCellWithIdentifier(identifier) as? UniversalTextTableViewCell
+                    }
+                    
+                    cell?.mainLabel.text = "Press \"Search\" to find and add locations."
+                    
+                    return cell!
+                }
             }
             
             return cell!

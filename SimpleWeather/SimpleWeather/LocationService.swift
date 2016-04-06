@@ -33,7 +33,7 @@ class LocationService: NSObject {
         
         self.locationManager?.requestAlwaysAuthorization()
         
-        self.startUpdatingLocation()
+        self.self.locationManager?.startUpdatingLocation()
         self.timer = NSTimer.scheduledTimerWithTimeInterval(
             300.0,
             target: self,
@@ -44,7 +44,17 @@ class LocationService: NSObject {
     }
     
     func startUpdatingLocation() {
-        self.locationManager?.startUpdatingLocation()
+        
+        if CLLocationManager.locationServicesEnabled() {
+            switch(CLLocationManager.authorizationStatus()) {
+            case .NotDetermined, .Restricted, .Denied:
+                print("No access to location services.")
+            case .AuthorizedAlways, .AuthorizedWhenInUse:
+                self.locationManager?.startUpdatingLocation()
+            }
+        } else {
+            print("Location services are not enabled")
+        }
     }
     
     func stopUpdatingLocation() {
@@ -52,7 +62,7 @@ class LocationService: NSObject {
     }
     
     func updateLocationWithTimer() {
-        self.locationManager?.startUpdatingLocation()
+        self.startUpdatingLocation()
     }
 }
 
@@ -65,7 +75,7 @@ extension LocationService: CLLocationManagerDelegate {
         
         self.currentLocation = location
 
-        self.locationManager?.stopUpdatingLocation()
+        self.stopUpdatingLocation()
         
         self.latitude = self.currentLocation!.coordinate.latitude
         self.longitude = self.currentLocation!.coordinate.longitude

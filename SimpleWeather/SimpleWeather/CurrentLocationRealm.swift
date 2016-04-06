@@ -14,5 +14,7 @@ class CurrentLocationRealm: Object {
     dynamic var latitude: Double = 0
     dynamic var longitude: Double = 0
     dynamic var updateTime: Double = 0
+    
+    dynamic var locationAvailable: Bool = false
 
 }

@@ -25,6 +25,7 @@ class CurrentLocation: ServerManager {
         location.latitude = latitude
         location.longitude = longitude
         location.updateTime = updateTime
+        location.locationAvailable = true
         
         self.realm.add(location, update: false)
         
@@ -33,5 +34,12 @@ class CurrentLocation: ServerManager {
     
     func getGPSLocation() -> Results<CurrentLocationRealm>? {
         return self.realm.objects(CurrentLocationRealm.self)
+    }
+    
+    func isServiceAvailable() -> Bool {
+        if self.realm.objects(CurrentLocationRealm.self).isEmpty {
+            return false
+        }
+        return (self.realm.objects(CurrentLocationRealm.self).first?.locationAvailable)!
     }
 }
