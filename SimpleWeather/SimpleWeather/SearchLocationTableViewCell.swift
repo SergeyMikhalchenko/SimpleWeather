@@ -8,7 +8,7 @@
 
 import Foundation
 import UIKit
-import Whisper
+//import Whisper
 
 class SearchLocationTableViewCell: UITableViewCell {
 
@@ -30,27 +30,27 @@ class SearchLocationTableViewCell: UITableViewCell {
         self.addLocationButton.clipsToBounds = true
     }
     
-    @IBAction func addButtonPressed(sender: UIButton) {
+    @IBAction func addButtonPressed(_ sender: UIButton) {
         
-        if Reachability.connectedToNetwork() {
+        if Reachability().connectedToNetwork() {
             
             LocationWeather().getByCityID(self.cityID, completion: { (result) in
                 print("getByCityID success")
             }) { (error) in
-                print(error.description)
+                print(error?.description)
             }
             
         } else {
             
-            let message = Murmur(
-                title: "No internet connection.",
-                duration: 1.5,
-                backgroundColor: UIColor.lightGrayColor(),
-                titleColor: UIColor.blackColor(),
-                font:  UIFont.systemFontOfSize(12)
-            )
-            
-            Whistle(message)
+//            let message = Murmur(
+//                title: "No internet connection.",
+//                duration: 1.5,
+//                backgroundColor: UIColor.lightGray,
+//                titleColor: UIColor.black,
+//                font:  UIFont.systemFont(ofSize: 12)
+//            )
+//            
+//            Whistle(message)
         }
     }
 }

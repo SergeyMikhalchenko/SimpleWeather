@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 import RealmSwift
-import Whisper
+//import Whisper
 
 class WeatherTableViewController: UITableViewController {
     
@@ -23,18 +23,18 @@ class WeatherTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let doneButton = UIBarButtonItem(title: "Search", style: .Done, target: self, action: #selector(WeatherTableViewController.buttonSearchPressed))
+        let doneButton = UIBarButtonItem(title: "Search", style: .done, target: self, action: #selector(WeatherTableViewController.buttonSearchPressed))
         self.navigationItem.rightBarButtonItem = doneButton
         
         self.refresherControl = UIRefreshControl()
-        self.refresherControl.addTarget(self, action: #selector(WeatherTableViewController.refresh(_:)), forControlEvents: UIControlEvents.ValueChanged)
+        self.refresherControl.addTarget(self, action: #selector(WeatherTableViewController.refresh(_:)), for: UIControlEvents.valueChanged)
         self.tableView.addSubview(refresherControl)
         
         self.tableView.delegate = self
-        self.tableView.registerNib(UINib(nibName: "LocationTableViewCell", bundle: nil), forCellReuseIdentifier: "LocationTableViewCell")
+        self.tableView.register(UINib(nibName: "LocationTableViewCell", bundle: nil), forCellReuseIdentifier: "LocationTableViewCell")
     }
 
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         
         self.locationServiceAvailable = CurrentLocation().isServiceAvailable()
@@ -45,7 +45,7 @@ class WeatherTableViewController: UITableViewController {
             self.tableView.reloadData()
             
             }, failure: { (error) in
-                print("\(error.description)")
+                print("\(error?.description)")
         })
 
         self.locationWeatherListing = LocationWeather().getLocationsWeather(completion: { (result) in
@@ -54,17 +54,18 @@ class WeatherTableViewController: UITableViewController {
             self.tableView.reloadData()
             
             }, failure: { (error) in
-                print("\(error.description)")
+                print("\(error?.description)")
         })
     }
     
 //MARK: - Refresh
     
-    func refresh(sender: AnyObject) {
+    func refresh(_ sender: AnyObject) {
         
         self.locationServiceAvailable = CurrentLocation().isServiceAvailable()
 
-        if Reachability.connectedToNetwork() {
+
+        if Reachability().connectedToNetwork() {
             
             CurrentLocationWeather().getByCurrentLocation({ (result) in
                 
@@ -77,44 +78,44 @@ class WeatherTableViewController: UITableViewController {
                     self.refresherControl.endRefreshing()
 
                     }, failure: { (error) in
-                        print("\(error.description)")
+                        print("\(error?.description)")
                         self.refresherControl.endRefreshing()
                 })
                 
                 }, failure: { (error) in
-                    print("\(error.description)")
+                    print("\(error?.description)")
                     self.refresherControl.endRefreshing()
             })
             
         } else {
             self.refresherControl.endRefreshing()
             
-            let message = Murmur(
-                title: "No internet connection.",
-                duration: 1.5,
-                backgroundColor: UIColor.lightGrayColor(),
-                titleColor: UIColor.blackColor(),
-                font:  UIFont.systemFontOfSize(12)
-            )
-            
-            Whistle(message)
+//            let message = Murmur(
+//                title: "No internet connection.",
+//                duration: 1.5,
+//                backgroundColor: UIColor.lightGray,
+//                titleColor: UIColor.black,
+//                font:  UIFont.systemFont(ofSize: 12)
+//            )
+//            
+//            Whistle(message)
         }
     }
     
 //MARK: - Custom methods and tools
     
     func buttonSearchPressed() {
-        self.performSegueWithIdentifier("loadSearchTableViewController", sender: self)
+        self.performSegue(withIdentifier: "loadSearchTableViewController", sender: self)
     }
 
 //MARK: - Segue
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         if segue.identifier == "loadDetailViewController" {
             if let cell = sender as? LocationTableViewCell {
                 
-                let vc = segue.destinationViewController as! DetailWeatherViewController
+                let vc = segue.destination as! DetailWeatherViewController
                 vc.locationID = cell.locationID
             }
         }
@@ -122,13 +123,13 @@ class WeatherTableViewController: UITableViewController {
     
 //MARK: - TableViewCustomization
     
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         switch section {
             case 0:
                 return 1
             case 1:
-                if locationWeatherListing?.count > 0 {
+                if (locationWeatherListing?.count)! > 0 {
                     return (locationWeatherListing?.count)!
                 }
                 return 1
@@ -136,18 +137,18 @@ class WeatherTableViewController: UITableViewController {
         }
     }
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        switch indexPath.section {
+        switch (indexPath as NSIndexPath).section {
         case 0, 1:
             let identifier = "LocationTableViewCell"
-            var cell = tableView.dequeueReusableCellWithIdentifier(identifier) as? LocationTableViewCell
+            var cell = tableView.dequeueReusableCell(withIdentifier: identifier) as? LocationTableViewCell
             if cell == nil {
-                tableView.registerNib(UINib(nibName: identifier, bundle: nil), forCellReuseIdentifier: identifier)
-                cell = tableView.dequeueReusableCellWithIdentifier(identifier) as? LocationTableViewCell
+                tableView.register(UINib(nibName: identifier, bundle: nil), forCellReuseIdentifier: identifier)
+                cell = tableView.dequeueReusableCell(withIdentifier: identifier) as? LocationTableViewCell
             }
             
-            switch indexPath.section {
+            switch (indexPath as NSIndexPath).section {
             case 0:
                 if (locationServiceAvailable && !currentLocationWeather.isEmpty) {
                     cell?.locationName.text = "\((currentLocationWeather.first?.name)!), \((currentLocationWeather.first?.country)!)"
@@ -155,17 +156,17 @@ class WeatherTableViewController: UITableViewController {
                     cell?.temperature.text = String(format: "Temperature: %3.1f C", temp)
                     cell?.weatherDescription.text = (currentLocationWeather.first?.main)!
                     cell?.locationID = (currentLocationWeather.first?.id)!
-                    cell?.userInteractionEnabled = true
+                    cell?.isUserInteractionEnabled = true
                 } else {
                     cell?.locationName.text = "Location unavailable."
                     cell?.temperature.text = String(format: "Temperature: Unknown")
                     cell?.weatherDescription.text = "Please, pull to refresh."
                     cell?.locationID = 0
-                    cell?.userInteractionEnabled = false
+                    cell?.isUserInteractionEnabled = false
                 }
             default:
                 
-                if locationWeatherListing?.count > 0 {
+                if (locationWeatherListing?.count)! > 0 {
                     cell?.locationName.text = "\(locationWeatherListing[indexPath.row].name), \(locationWeatherListing[indexPath.row].country)"
                     let temp = locationWeatherListing[indexPath.row].temp
                     cell?.temperature.text = String(format: "Temperature: %3.1f C", temp)
@@ -173,15 +174,15 @@ class WeatherTableViewController: UITableViewController {
                     cell?.locationID = locationWeatherListing[indexPath.row].id
                 } else {
                     let identifier = "UniversalTextTableViewCell"
-                    var cell = tableView.dequeueReusableCellWithIdentifier(identifier) as? UniversalTextTableViewCell
+                    var cell = tableView.dequeueReusableCell(withIdentifier: identifier) as? UniversalTextTableViewCell
                     if cell == nil {
-                        tableView.registerNib(UINib(nibName: identifier, bundle: nil), forCellReuseIdentifier: identifier)
-                        cell = tableView.dequeueReusableCellWithIdentifier(identifier) as? UniversalTextTableViewCell
+                        tableView.register(UINib(nibName: identifier, bundle: nil), forCellReuseIdentifier: identifier)
+                        cell = tableView.dequeueReusableCell(withIdentifier: identifier) as? UniversalTextTableViewCell
                     }
                     
                     cell?.mainLabel.text = "Press \"Search\" to find and add locations."
                     
-                    cell?.userInteractionEnabled = false
+                    cell?.isUserInteractionEnabled = false
                     
                     return cell!
                 }
@@ -194,44 +195,44 @@ class WeatherTableViewController: UITableViewController {
     }
     
 
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return 2
     }
     
-    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 80
     }
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        self.tableView.deselectRowAtIndexPath(indexPath, animated: false)
+        self.tableView.deselectRow(at: indexPath, animated: false)
         
-        let cell = self.tableView.cellForRowAtIndexPath(indexPath) as! LocationTableViewCell
+        let cell = self.tableView.cellForRow(at: indexPath) as! LocationTableViewCell
         
-        self.performSegueWithIdentifier("loadDetailViewController", sender: cell)
+        self.performSegue(withIdentifier: "loadDetailViewController", sender: cell)
     }
     
-    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         
-        switch indexPath.section {
+        switch (indexPath as NSIndexPath).section {
         case 1: return true
         default: return false
         }
     }
     
-    override func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
+    override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
        
-        switch indexPath.section {
+        switch (indexPath as NSIndexPath).section {
         case 1:
-            let cell = self.tableView.cellForRowAtIndexPath(indexPath) as! LocationTableViewCell
+            let cell = self.tableView.cellForRow(at: indexPath) as! LocationTableViewCell
             
-            let delete = UITableViewRowAction(style: .Default, title: "Delete") { action, index in
+            let delete = UITableViewRowAction(style: .default, title: "Delete") { action, index in
                 LocationWeather().deleteLocation(locationID: cell.locationID, completion: { (result) in
                     self.locationWeatherListing = result
                     self.tableView.reloadData()
                 })
             }
-            delete.backgroundColor = UIColor.redColor()
+            delete.backgroundColor = UIColor.red
             
             return [delete]
         default:
@@ -239,23 +240,23 @@ class WeatherTableViewController: UITableViewController {
         }
     }
     
-    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         
     }
     
-    override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
-        let width = UIScreen.mainScreen().bounds.width
+        let width = UIScreen.main.bounds.width
         
-        let label = UILabel(frame: CGRectZero)
+        let label = UILabel(frame: CGRect.zero)
         label.frame = CGRect(x: 0, y: 5, width: width, height: 15)
-        label.textAlignment = .Center
-        label.textColor = UIColor.grayColor()
+        label.textAlignment = .center
+        label.textColor = UIColor.gray
         label.text = ""
         
         let view = UIView(frame:CGRect(x: 0, y: 0, width: width, height: 20))
         view.addSubview(label)
-        view.backgroundColor = UIColor.clearColor()
+        view.backgroundColor = UIColor.clear
         
         switch section {
         case 0:
@@ -265,11 +266,11 @@ class WeatherTableViewController: UITableViewController {
             label.text = "Favorite locations"
             return view
         default:
-            return UIView(frame: CGRectZero)
+            return UIView(frame: CGRect.zero)
         }
     }
     
-    override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         switch section {
         case 0:
             return 25

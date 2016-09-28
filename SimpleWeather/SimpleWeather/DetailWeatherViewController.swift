@@ -68,12 +68,12 @@ class DetailWeatherViewController: UIViewController {
         }
     }
     
-    func dateFormating(time: Double) -> String {
+    func dateFormating(_ time: Double) -> String {
         
-        let date = NSDate(timeIntervalSince1970: time)
-        let dateFormatter = NSDateFormatter()
+        let date = Date(timeIntervalSince1970: time)
+        let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "HH:mm"
         
-        return dateFormatter.stringFromDate(date)
+        return dateFormatter.string(from: date)
     }
 }

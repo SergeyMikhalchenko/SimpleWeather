@@ -19,10 +19,10 @@ class CurrentLocationWeather: ServerManager {
     }
     
     func getByCurrentLocation(
-        completion:(result: Results<CurrentLocationWeatherRealm>?) -> Void,
-        failure:(error:NSError!) -> Void) -> Results<CurrentLocationWeatherRealm>? {
+        _ completion:@escaping (_ result: Results<CurrentLocationWeatherRealm>?) -> Void,
+        failure:@escaping (_ error:NSError?) -> Void) -> Results<CurrentLocationWeatherRealm>? {
         
-        if let location: Results<CurrentLocationRealm>! = CurrentLocation().getGPSLocation() {
+        if let location: Results<CurrentLocationRealm>? = CurrentLocation().getGPSLocation() {
             if let lon = location?.first?.longitude {
                 self.lon = lon
             }
@@ -33,10 +33,10 @@ class CurrentLocationWeather: ServerManager {
         
         let method = "weather"
         let parameters: [String:AnyObject] = [
-            "lon":self.lon,
-            "lat":self.lat,
-            "cnt":1,
-            "units":"metric"
+            "lon":self.lon as AnyObject,
+            "lat":self.lat as AnyObject,
+            "cnt":1 as AnyObject,
+            "units":"metric" as AnyObject
         ]
         
         ServerManager.sharedInstance.get(method: method, parameters: parameters, completion: { (response) in
@@ -50,38 +50,38 @@ class CurrentLocationWeather: ServerManager {
                 
                 locationWeather.id = result["id"] as! Int
                 locationWeather.name = result["name"] as! String
-                locationWeather.country = (result["sys"] as! NSDictionary).objectForKey("country") as! String
+                locationWeather.country = (result["sys"] as! NSDictionary).object(forKey: "country") as! String
                 locationWeather.lon = result["coord"]!["lon"] as! Float
                 locationWeather.lat = result["coord"]!["lat"] as! Float
                 locationWeather.dt = result["dt"] as! Double
-                locationWeather.sunrise = (result["sys"] as! NSDictionary).objectForKey("sunrise") as! Double
-                locationWeather.sunset = (result["sys"] as! NSDictionary).objectForKey("sunset") as! Double
+                locationWeather.sunrise = (result["sys"] as! NSDictionary).object(forKey: "sunrise") as! Double
+                locationWeather.sunset = (result["sys"] as! NSDictionary).object(forKey: "sunset") as! Double
                 
-                locationWeather.main = ((result["weather"] as! NSArray).firstObject as! NSDictionary).objectForKey("main") as! String
-                locationWeather.mainDescription = ((result["weather"] as! NSArray).firstObject as! NSDictionary).objectForKey("description") as! String
-                locationWeather.temp = (result["main"] as! NSDictionary).objectForKey("temp") as! Float
-                locationWeather.pressure = (result["main"] as! NSDictionary).objectForKey("pressure") as! Float
-                locationWeather.humidity = (result["main"] as! NSDictionary).objectForKey("humidity") as! Int
+                locationWeather.main = ((result["weather"] as! NSArray).firstObject as! NSDictionary).object(forKey: "main") as! String
+                locationWeather.mainDescription = ((result["weather"] as! NSArray).firstObject as! NSDictionary).object(forKey: "description") as! String
+                locationWeather.temp = (result["main"] as! NSDictionary).object(forKey: "temp") as! Float
+                locationWeather.pressure = (result["main"] as! NSDictionary).object(forKey: "pressure") as! Float
+                locationWeather.humidity = (result["main"] as! NSDictionary).object(forKey: "humidity") as! Int
                 
-                locationWeather.temp_min = (result["main"] as! NSDictionary).objectForKey("temp_min") as! Float
-                locationWeather.temp_max = (result["main"] as! NSDictionary).objectForKey("temp_max") as! Float
+                locationWeather.temp_min = (result["main"] as! NSDictionary).object(forKey: "temp_min") as! Float
+                locationWeather.temp_max = (result["main"] as! NSDictionary).object(forKey: "temp_max") as! Float
                 
-                locationWeather.wind_speed = (result["wind"] as! NSDictionary).objectForKey("speed") as! Float
-                locationWeather.clouds_all = (result["clouds"] as! NSDictionary).objectForKey("all") as! Int
+                locationWeather.wind_speed = (result["wind"] as! NSDictionary).object(forKey: "speed") as! Float
+                locationWeather.clouds_all = (result["clouds"] as! NSDictionary).object(forKey: "all") as! Int
             
             self.realm.add(locationWeather, update: true)
             
             try! self.realm.commitWrite()
             
-            completion(result: self.realm.objects(CurrentLocationWeatherRealm.self))
+            completion(self.realm.objects(CurrentLocationWeatherRealm.self))
             }, failure: { (error) in
-                failure(error: error)
+                failure(error)
         })
         
         return self.realm.objects(CurrentLocationWeatherRealm.self)
     }
     
-    func getLocationFromCache(id id: Int) -> Results<CurrentLocationWeatherRealm> {
+    func getLocationFromCache(id: Int) -> Results<CurrentLocationWeatherRealm> {
         return self.realm.objects(CurrentLocationWeatherRealm.self).filter("id == \(id)")
     }
 }

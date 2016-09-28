@@ -14,12 +14,12 @@ class LocationService: NSObject {
     var locationManager: CLLocationManager?
     var currentLocation: CLLocation?
     
-    var timer: NSTimer!
+    var timer: Timer!
     
     var latitude: Double! = 0
     var longitude: Double! = 0
     
-    var lastUpdateTime: NSTimeInterval! = 0
+    var lastUpdateTime: TimeInterval! = 0
     
     static let sharedInstance = LocationService()
     override init() {
@@ -34,8 +34,8 @@ class LocationService: NSObject {
         self.locationManager?.requestAlwaysAuthorization()
         
         self.self.locationManager?.startUpdatingLocation()
-        self.timer = NSTimer.scheduledTimerWithTimeInterval(
-            300.0,
+        self.timer = Timer.scheduledTimer(
+            timeInterval: 300.0,
             target: self,
             selector: #selector(LocationService.updateLocationWithTimer),
             userInfo: nil,
@@ -47,9 +47,9 @@ class LocationService: NSObject {
         
         if CLLocationManager.locationServicesEnabled() {
             switch(CLLocationManager.authorizationStatus()) {
-            case .NotDetermined, .Restricted, .Denied:
+            case .notDetermined, .restricted, .denied:
                 print("No access to location services.")
-            case .AuthorizedAlways, .AuthorizedWhenInUse:
+            case .authorizedAlways, .authorizedWhenInUse:
                 self.locationManager?.startUpdatingLocation()
             }
         } else {
@@ -69,7 +69,7 @@ class LocationService: NSObject {
 extension LocationService: CLLocationManagerDelegate {
 
     
-    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         
         let location: CLLocation = locations.last!
         
@@ -79,21 +79,21 @@ extension LocationService: CLLocationManagerDelegate {
         
         self.latitude = self.currentLocation!.coordinate.latitude
         self.longitude = self.currentLocation!.coordinate.longitude
-        self.lastUpdateTime = NSDate().timeIntervalSince1970
+        self.lastUpdateTime = Date().timeIntervalSince1970
         
         CurrentLocation().updateGPSLocation(latitude: latitude, longitude: longitude, updateTime: lastUpdateTime)
         print("time = \(Int(self.lastUpdateTime)) lat = \(self.latitude) lon = \(self.longitude)")
     }
     
-    func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         
-        if status == .AuthorizedAlways {
+        if status == .authorizedAlways {
             print("LocationManager: Authorization success")
         }
     }
     
-    func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         
-            print("Location manager: \(error.description)")
+            print("Location manager: \(error.localizedDescription)")
     }
 }

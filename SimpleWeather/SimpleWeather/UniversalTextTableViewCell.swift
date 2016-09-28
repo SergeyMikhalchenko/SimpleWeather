@@ -22,7 +22,7 @@ class UniversalTextTableViewCell: UITableViewCell {
         super.awakeFromNib()
     }
     
-    func setLabelText(text: String) {
+    func setLabelText(_ text: String) {
         self.mainLabel.text = text
         self.mainLabel.sizeToFit()
     }

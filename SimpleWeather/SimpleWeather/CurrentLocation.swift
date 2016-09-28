@@ -15,7 +15,7 @@ class CurrentLocation: ServerManager {
         super.init()
     }
     
-    func updateGPSLocation(latitude latitude: Double, longitude: Double, updateTime: Double) {
+    func updateGPSLocation(latitude: Double, longitude: Double, updateTime: Double) {
         
         self.realm.beginWrite()
         self.realm.delete(self.realm.objects(CurrentLocationRealm.self))
