@@ -89,16 +89,18 @@ class WeatherTableViewController: UITableViewController {
             
         } else {
             self.refresherControl.endRefreshing()
+            /*
+            let message = Murmur(
+                title: "No internet connection.",
+                duration: 1.5,
+                backgroundColor: UIColor.lightGray,
+                titleColor: UIColor.black,
+                font:  UIFont.systemFont(ofSize: 12)
+            )
             
-//            let message = Murmur(
-//                title: "No internet connection.",
-//                duration: 1.5,
-//                backgroundColor: UIColor.lightGray,
-//                titleColor: UIColor.black,
-//                font:  UIFont.systemFont(ofSize: 12)
-//            )
-//            
-//            Whistle(message)
+            Whistle(message)
+            */
+            print("No internet connection.")
         }
     }
     
